@@ -69,7 +69,7 @@ export default function ReceiptUploadPage() {
         </p>
       </header>
 
-      {flags.showUploadReceiptHeading && (
+      {(flags.showUploadReceiptHeading ?? true) && (
         <h2 className="mb-3 text-center text-lg font-semibold text-base-content/90">
           Upload a receipt
         </h2>

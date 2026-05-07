@@ -8,17 +8,27 @@ import App from "./App.jsx";
 const ldClientSideId = import.meta.env.VITE_LAUNCHDARKLY_CLIENT_ID || "";
 
 (async () => {
-  const LDProvider = await asyncWithLDProvider({
-    clientSideID: ldClientSideId,
-    context: {
-      kind: "user",
-      key: "anonymous-user",
-      anonymous: true,
-    },
-    options: {
-      bootstrap: "localStorage",
-    },
-  });
+  let LDProvider;
+
+  if (ldClientSideId) {
+    LDProvider = await asyncWithLDProvider({
+      clientSideID: ldClientSideId,
+      context: {
+        kind: "user",
+        key: "anonymous-user",
+        anonymous: true,
+      },
+      options: {
+        bootstrap: "localStorage",
+      },
+    });
+  } else {
+    console.warn(
+      "VITE_LAUNCHDARKLY_CLIENT_ID is not set. Feature flags will not be available.",
+    );
+    // Fallback provider that returns empty flags
+    LDProvider = ({ children }) => children;
+  }
 
   createRoot(document.getElementById("root")).render(
     <StrictMode>
