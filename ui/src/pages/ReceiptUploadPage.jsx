@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useFlags } from "launchdarkly-react-client-sdk";
 import { API_BASE } from "../api.js";
 
 export default function ReceiptUploadPage() {
   const navigate = useNavigate();
+  const flags = useFlags();
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(null);
+  
+  // Feature flag for showing the upload heading
+  const showUploadHeading = flags.showUploadHeading ?? true;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -67,9 +72,11 @@ export default function ReceiptUploadPage() {
         </p>
       </header>
 
-      <h2 className="mb-3 text-center text-lg font-semibold text-base-content/90">
-        Upload a receipt
-      </h2>
+      {showUploadHeading && (
+        <h2 className="mb-3 text-center text-lg font-semibold text-base-content/90">
+          Upload a receipt
+        </h2>
+      )}
 
       <form onSubmit={handleSubmit}>
         <div className="card border-base-300 bg-base-100 border shadow-md">

@@ -72,6 +72,21 @@ So **which tools the agent can call** is controlled from the LaunchDarkly dashbo
 
 Optional: use targeting rules or multi-variation experiments on the same keys; the server always resolves config at request time via `agentConfig`.
 
+### Feature Flags in the UI
+
+The UI also integrates LaunchDarkly for client-side feature flags. Currently implemented flags:
+
+| Flag Key | Type | Default | Description |
+|----------|------|---------|-------------|
+| `showUploadHeading` | Boolean | `true` | Controls visibility of the "Upload a receipt" heading on the upload page |
+
+To use feature flags in the UI:
+
+1. **Get your client-side ID** from your LaunchDarkly project (Account Settings → Projects → [Your Project] → Environments → Client-side ID).
+2. Set `VITE_LAUNCHDARKLY_CLIENT_ID` in `ui/.env.local` or your environment.
+3. Create the feature flags in your LaunchDarkly project with the keys listed above.
+4. The UI will gracefully handle missing flags by using the default values shown in the table.
+
 ---
 
 ## Repository layout
@@ -99,9 +114,10 @@ Root `package.json` exists for shared tooling dependencies; run the app from `se
 
 **UI (`ui/`)**
 
-| Variable | Description |
-|----------|-------------|
-| `VITE_API_BASE` | API origin in production (empty string if same origin) |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `VITE_API_BASE` | No | API origin in production (empty string if same origin) |
+| `VITE_LAUNCHDARKLY_CLIENT_ID` | No | LaunchDarkly client-side ID for feature flags in the UI |
 
 ---
 
