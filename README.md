@@ -74,6 +74,32 @@ Optional: use targeting rules or multi-variation experiments on the same keys; t
 
 ---
 
+## LaunchDarkly and the UI
+
+The UI uses the **LaunchDarkly React SDK** (`launchdarkly-react-client-sdk`) to control feature flags on the client side.
+
+### Initialization
+
+In `ui/src/main.jsx`, the app initializes the LaunchDarkly provider with:
+
+- **Client-side ID** from `VITE_LAUNCHDARKLY_CLIENT_ID` environment variable
+- **Anonymous user context** for evaluation
+- **localStorage bootstrap** for faster flag loading
+
+### Feature flags used in the UI
+
+| Flag key | Type | Purpose | Default | Code |
+|----------|------|---------|---------|------|
+| **`showUploadReceiptHeading`** | Boolean | Controls visibility of "Upload a receipt" heading on the upload page | `false` | `ui/src/pages/ReceiptUploadPage.jsx` |
+
+### What to create in LaunchDarkly
+
+1. **Client-side ID** for your environment (found in LaunchDarkly project settings)
+2. **Feature flag** with key **`showUploadReceiptHeading`** (boolean flag)
+3. Set the flag value to `true` to show the heading, or `false` to hide it
+
+---
+
 ## Repository layout
 
 | Path | Role |
@@ -102,6 +128,7 @@ Root `package.json` exists for shared tooling dependencies; run the app from `se
 | Variable | Description |
 |----------|-------------|
 | `VITE_API_BASE` | API origin in production (empty string if same origin) |
+| `VITE_LAUNCHDARKLY_CLIENT_ID` | LaunchDarkly client-side ID for feature flags in the UI |
 
 ---
 
