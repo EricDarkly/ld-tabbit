@@ -90,7 +90,7 @@ In `ui/src/main.jsx`, the app initializes the LaunchDarkly provider with:
 
 | Flag key | Type | Purpose | Default | Code |
 |----------|------|---------|---------|------|
-| **`showUploadReceiptHeading`** | Boolean | Controls visibility of "Upload a receipt" heading on the upload page | `false` | `ui/src/pages/ReceiptUploadPage.jsx` |
+| **`showUploadReceiptHeading`** | Boolean | Controls visibility of "Upload a receipt" heading on the upload page | `true` | `ui/src/pages/ReceiptUploadPage.jsx` |
 
 ### What to create in LaunchDarkly
 
