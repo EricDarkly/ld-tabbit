@@ -67,9 +67,9 @@ export default function ReceiptUploadPage() {
         </p>
       </header>
 
-      {/* <h2 className="mb-3 text-center text-lg font-semibold text-base-content/90">
+      <h2 className="mb-3 text-center text-lg font-semibold text-base-content/90">
         Upload a receipt
-      </h2> */}
+      </h2>
 
       <form onSubmit={handleSubmit}>
         <div className="card border-base-300 bg-base-100 border shadow-md">
