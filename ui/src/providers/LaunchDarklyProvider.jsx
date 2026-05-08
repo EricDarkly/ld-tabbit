@@ -18,7 +18,11 @@ export default function LaunchDarklyProvider({ children }) {
   }
 
   return (
-    <LDProvider clientSideID={clientSideID} context={getLaunchDarklyContext()}>
+    <LDProvider
+      clientSideID={clientSideID}
+      context={getLaunchDarklyContext()}
+      timeout={10}
+    >
       {children}
     </LDProvider>
   );
