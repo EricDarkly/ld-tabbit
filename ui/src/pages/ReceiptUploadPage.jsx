@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useFlags } from "launchdarkly-react-client-sdk";
 import { useNavigate } from "react-router-dom";
 import { API_BASE } from "../api.js";
 
 export default function ReceiptUploadPage() {
   const navigate = useNavigate();
+  const flags = useFlags();
+  const showHeroFlag = Boolean(flags.heroFlag ?? flags["hero-flag"]);
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(null);
@@ -67,9 +70,11 @@ export default function ReceiptUploadPage() {
         </p>
       </header>
 
-      <h2 className="mb-3 text-center text-lg font-semibold text-base-content/90">
-        Upload a receipt
-      </h2>
+      {showHeroFlag ? (
+        <h2 className="mb-3 text-center text-lg font-semibold text-base-content/90">
+          Upload a receipt
+        </h2>
+      ) : null}
 
       <form onSubmit={handleSubmit}>
         <div className="card border-base-300 bg-base-100 border shadow-md">
