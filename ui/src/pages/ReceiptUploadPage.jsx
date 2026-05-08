@@ -56,25 +56,25 @@ export default function ReceiptUploadPage() {
 
   return (
     <div className="container mx-auto max-w-xl px-5 py-10 text-left">
-      {/* <header className="mb-4 text-center">
-        <h1 className="mb-4 text-center text-5xl font-semibold tracking-tight">
-          Tabbit
-        </h1>
-        <h2 className="mb-2 text-lg font-semibold tracking-tight">
-          Split the tab without the spreadsheet
-        </h2>
-        <p className="text-base-content/80 mx-auto max-w-md text-base leading-relaxed">
-          Tabbit reads a photo of your receipt, pulls out line items and totals,
-          and gives you a link everyone can use. Each person says what they had
-          in plain language; we map it to the bill so you can settle up fairly.
-        </p>
-      </header> */}
-
-      {showHeroFlag ? (
+      {!showHeroFlag ? (
+        <header className="mb-4 text-center">
+          <h1 className="mb-4 text-center text-5xl font-semibold tracking-tight">
+            Tabbit
+          </h1>
+          <h2 className="mb-2 text-lg font-semibold tracking-tight">
+            Split the tab without the spreadsheet
+          </h2>
+          <p className="text-base-content/80 mx-auto max-w-md text-base leading-relaxed">
+            Tabbit reads a photo of your receipt, pulls out line items and totals,
+            and gives you a link everyone can use. Each person says what they had
+            in plain language; we map it to the bill so you can settle up fairly.
+          </p>
+        </header>
+      ) : (
         <h2 className="mb-3 text-center text-lg font-semibold text-base-content/90">
           Upload a receipt
         </h2>
-      ) : null}
+      )}
 
       <form onSubmit={handleSubmit}>
         <div className="card border-base-300 bg-base-100 border shadow-md">
