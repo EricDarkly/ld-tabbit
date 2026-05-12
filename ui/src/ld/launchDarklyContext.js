@@ -1,4 +1,5 @@
 const STORAGE_KEY = "ld-anonymous-context-key";
+const PROJECT_KEY = 'epietrowicz-tabbit'
 
 /**
  * Stable anonymous LaunchDarkly context so targeting stays consistent across visits.
