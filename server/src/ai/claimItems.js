@@ -195,6 +195,7 @@ export async function parsePlainTextToReceiptClaims(
     return { allocations: [], claimRows: [], sharedOverheadAmount: 0 };
   }
 
+  // LaunchDarkly
   const fallbackAgentConfig = { enabled: false };
   const agentConfig = await aiClient.agentConfig(
     "claim-parser",
@@ -203,26 +204,26 @@ export async function parsePlainTextToReceiptClaims(
     { line_items: JSON.stringify(lineItems) },
   );
 
+  // LaunchDarkly - create tracker
   const tracker = agentConfig.createTracker();
 
   if (!agentConfig.enabled || !tracker) {
     throw new Error("Claim parser AI config is disabled or missing a tracker.");
   }
 
-  let model
-  if(agentConfig.model.name === "databricks-dbrx-instruct") {
-    model = createDatabricksModel(agentConfig);
-  } else {
-    model = await LangChainProvider.createLangChainModel(agentConfig);
-  }
+  // LaunchDarkly - create model
+  const model = await LangChainProvider.createLangChainModel(agentConfig);
 
+  // LangChain - create agent
   const agent = createAgent({
     model,
     tools: mapAiConfigTools(agentConfig),
     systemPrompt: agentConfig.instructions,
+    // Custom schema from the AI Config object
     responseFormat: agentConfig.model.custom.schema,
   });
 
+  // LaunchDarkly - track metrics
   const aiMessage = await tracker.trackMetricsOf(
     LangChainProvider.getAIMetricsFromResponse,
     () => invokeClaimAgent(agent, plainText),
